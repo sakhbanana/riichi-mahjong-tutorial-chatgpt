@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практика - Риичи Маджонг</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>🀄 Риичи Маджонг</h1>
+        <p>Интерактивный учебник по японскому маджонгу</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="basics.html">Основы</a></li>
+            <li><a href="tiles.html">Фишки</a></li>
+            <li><a href="yaku.html">Яку</a></li>
+            <li><a href="scoring.html">Очки</a></li>
+            <li><a href="practice.html">Практика</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="practice">
+            <h2>Практика и тренировка</h2>
+            <p>🎯 Цель раздела: Проверить свои знания с помощью интерактивных тестов и узнать, где можно практиковаться дальше!</p>
+            <div class="progress">
+                <p>📊 Ваш прогресс: <span id="progress">0%</span></p>
+                <p>Правильных ответов: <span id="correct">0</span> из 5</p>
+            </div>
+            <div class="test">
+                <h3>Тест 1: Распознавание яку</h3>
+                <p>Какое яку в этой руке?</p>
+                <p>Не отвечено</p>
+                <div class="hand">
+                    <img src="tiles/regular/2m.svg" alt="2m">
+                    <img src="tiles/regular/3m.svg" alt="3m">
+                    <img src="tiles/regular/4m.svg" alt="4m"> |
+                    <img src="tiles/regular/5p.svg" alt="5p">
+                    <img src="tiles/regular/6p.svg" alt="6p">
+                    <img src="tiles/regular/7p.svg" alt="7p"> |
+                    <img src="tiles/regular/3s.svg" alt="3s">
+                    <img src="tiles/regular/4s.svg" alt="4s">
+                    <img src="tiles/regular/5s.svg" alt="5s"> |
+                    <img src="tiles/regular/6m.svg" alt="6m">
+                    <img src="tiles/regular/7m.svg" alt="7m">
+                    <img src="tiles/regular/8m.svg" alt="8m"> |
+                    <img src="tiles/regular/2p.svg" alt="2p">
+                    <img src="tiles/regular/2p.svg" alt="2p">
+                </div>
+                <div class="options">
+                    <label><input type="radio" name="q1" value="a"> ❌ Якухай</label>
+                    <label><input type="radio" name="q1" value="b"> ❌ Чинитсу</label>
+                    <label><input type="radio" name="q1" value="c"> ✅ Танъяо</label>
+                    <label><input type="radio" name="q1" value="d"> ❌ Тойтой</label>
+                </div>
+                <button onclick="checkAnswer(1)">Проверить</button>
+            </div>
+            <div class="test">
+                <h3>Тест 2: Подсчёт групп</h3>
+                <p>Сколько завершённых групп в этой руке?</p>
+                <p>Не отвечено</p>
+                <div class="hand">
+                    <img src="tiles/regular/1m.svg" alt="1m">
+                    <img src="tiles/regular/2m.svg" alt="2m">
+                    <img src="tiles/regular/3m.svg" alt="3m"> |
+                    <img src="tiles/regular/4p.svg" alt="4p">
+                    <img src="tiles/regular/5p.svg" alt="5p">
+                    <img src="tiles/regular/6p.svg" alt="6p">
+                </div>
+                <div class="options">
+                    <label><input type="radio" name="q2" value="a"> ❌ 4 группы</label>
+                    <label><input type="radio" name="q2" value="b"> ✅ 2 группы</label>
+                    <label><input type="radio" name="q2" value="c"> ❌ 3 группы</label>
+                    <label><input type="radio" name="q2" value="d"> ❌ 1 группа</label>
+                </div>
+                <button onclick="checkAnswer(2)">Проверить</button>
+            </div>
+            <div class="test">
+                <h3>Тест 3: Определение стоимости</h3>
+                <p>Сколько стоит рука с 6 ханами на Рон (для не-дилера)?</p>
+                <p>Не отвечено</p>
+                <div class="options">
+                    <label><input type="radio" name="q3" value="a"> ❌ 8,000 очков</label>
+                    <label><input type="radio" name="q3" value="b"> ✅ 12,000 очков (Ханеман)</label>
+                    <label><input type="radio" name="q3" value="c"> ❌ 16,000 очков</label>
+                    <label><input type="radio" name="q3" value="d"> ❌ 24,000 очков</label>
+                </div>
+                <button onclick="checkAnswer(3)">Проверить</button>
+            </div>
+            <div class="test">
+                <h3>Тест 4: Типы фишек</h3>
+                <p>Что такое "терминалы"?</p>
+                <p>Не отвечено</p>
+                <div class="options">
+                    <label><input type="radio" name="q4" value="a"> ❌ Фишки 2-8</label>
+                    <label><input type="radio" name="q4" value="b"> ✅ Фишки 1 и 9</label>
+                    <label><input type="radio" name="q4" value="c"> ❌ Все почётные фишки</label>
+                    <label><input type="radio" name="q4" value="d"> ❌ Только драконы</label>
+                </div>
+                <button onclick="checkAnswer(4)">Проверить</button>
+            </div>
+            <div class="test">
+                <h3>Тест 5: Правила игры</h3>
+                <p>Можно ли выиграть без яку?</p>
+                <p>Не отвечено</p>
+                <div class="options">
+                    <label><input type="radio" name="q5" value="a"> ❌ Да, если есть правильная структура</label>
+                    <label><input type="radio" name="q5" value="b"> ✅ Нет, нужно минимум 1 яку</label>
+                    <label><input type="radio" name="q5" value="c"> ❌ Да, если есть дора</label>
+                    <label><input type="radio" name="q5" value="d"> ❌ Зависит от правил</label>
+                </div>
+                <button onclick="checkAnswer(5)">Проверить</button>
+            </div>
+            <div class="constructor">
+                <h3>Конструктор рук</h3>
+                <p>Нажимайте на фишки, чтобы добавить их в руку. Попробуйте собрать выигрышную комбинацию!</p>
+                <div class="available-tiles">
+                    <p>Доступные фишки:</p>
+                    <div class="tiles-pool" id="pool">
+                        <!-- Generate pool of all tiles, e.g., 4 copies each -->
+                        <!-- For brevity, example: -->
+                        <img src="tiles/regular/1m.svg" alt="1m" class="draggable" onclick="addToHand(this.src, this.alt)">
+                        <!-- Repeat for all 136, but in code use JS to populate -->
+                    </div>
+                </div>
+                <div class="your-hand">
+                    <p>Ваша рука (0/14):</p>
+                    <div class="hand" id="hand">
+                        <p>Нажимайте на фишки выше, чтобы добавить их сюда</p>
+                    </div>
+                    <button onclick="clearHand()">🗑️ Очистить руку</button>
+                    <button onclick="checkHand()">✓ Проверить руку</button>
+                </div>
+            </div>
+            <div class="resources">
+                <h3>📚 Полезные ресурсы</h3>
+                <h4>🎮 Онлайн-площадки для игры</h4>
+                <p>Лучший способ научиться — это играть! Вот проверенные платформы:</p>
+                <div class="platform">
+                    <h5>🌸 Mahjong Soul (雀魂)</h5>
+                    <p>Красивая онлайн-платформа с отличным обучением для новичков. Доступна на ПК и мобильных устройствах.</p>
+                    <ul>
+                        <li>Новичкам</li>
+                        <li>Русский язык</li>
+                        <li>Бесплатно</li>
+                    </ul>
+                    <a href="https://mahjongsoul.com">Ссылка: mahjongsoul.com</a>
+                </div>
+                <div class="platform">
+                    <h5>🎴 Tenhou (天鳳)</h5>
+                    <p>Классическая площадка для серьёзных игроков. Более строгий интерфейс, но отличная игровая механика.</p>
+                    <ul>
+                        <li>Опытным</li>
+                        <li>Английский/Японский</li>
+                        <li>Бесплатно</li>
+                    </ul>
+                    <a href="https://tenhou.net">Ссылка: tenhou.net</a>
+                </div>
+                <div class="platform">
+                    <h5>📱 Ron2</h5>
+                    <p>Мобильное приложение для iOS и Android. Удобно для игры в дороге.</p>
+                    <ul>
+                        <li>Мобильное</li>
+                        <li>Английский</li>
+                        <li>Бесплатно</li>
+                    </ul>
+                </div>
+                <h4>📖 Обучающие материалы</h4>
+                <div class="resource">
+                    <h5>📘 Riichi Book I</h5>
+                    <p>Отличная книга по базовой стратегии риичи маджонга. Доступна бесплатно в PDF.</p>
+                    <ul>
+                        <li>Стратегия</li>
+                        <li>Английский</li>
+                        <li>PDF</li>
+                    </ul>
+                </div>
+                <div class="resource">
+                    <h5>🌐 riichi.wiki</h5>
+                    <p>Энциклопедия по риичи маджонгу на английском языке. Подробные статьи обо всех аспектах игры.</p>
+                    <ul>
+                        <li>Справочник</li>
+                        <li>Английский</li>
+                        <li>Онлайн</li>
+                    </ul>
+                </div>
+                <div class="resource">
+                    <h5>🇷🇺 arcturus.su</h5>
+                    <p>Русскоязычный ресурс по маджонгу. Статьи, переводы, сообщество игроков.</p>
+                    <ul>
+                        <li>Русский язык</li>
+                        <li>Сообщество</li>
+                        <li>Онлайн</li>
+                    </ul>
+                </div>
+                <h4>💡 План обучения для новичка</h4>
+                <ol>
+                    <li>Неделя 1-2: Изучите основы, фишки и три базовых яку</li>
+                    <li>Неделя 3-4: Начните играть на Mahjong Soul с обучением</li>
+                    <li>Месяц 2: Изучите систему подсчёта очков</li>
+                    <li>Месяц 3: Освойте сложные яку и базовую стратегию</li>
+                    <li>Месяц 4+: Углубляйтесь в тактику, читайте книги</li>
+                </ol>
+            </div>
+            <nav class="section-nav">
+                <a href="scoring.html">← Очки</a>
+                <a href="index.html">На главную</a>
+            </nav>
+        </section>
+    </main>
+    <footer>
+        <p>🀄 Риичи Маджонг - Интерактивный учебник</p>
+        <p>Создано для изучения японского маджонга</p>
+        <p>Удачи в игре! 🎴</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
