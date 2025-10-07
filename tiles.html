@@ -4,613 +4,153 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фишки - Риичи Маджонг</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: #333;
-            line-height: 1.6;
-            min-height: 100vh;
-        }
-
-        .header {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-
-        .header h1 {
-            color: #1e3c72;
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .header p {
-            color: #666;
-            font-size: 1.1rem;
-        }
-
-        nav {
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            padding: 0.5rem;
-        }
-
-        .nav-link {
-            color: #1e3c72;
-            text-decoration: none;
-            padding: 1rem 1.5rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            border-radius: 8px;
-            margin: 0.25rem;
-        }
-
-        .nav-link:hover {
-            background: #f0f4ff;
-            transform: translateY(-2px);
-        }
-
-        .nav-link.active {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .content {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-            animation: fadeIn 0.5s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
-            color: #1e3c72;
-            margin-bottom: 1.5rem;
-            font-size: 2rem;
-            border-bottom: 3px solid #667eea;
-            padding-bottom: 0.5rem;
-        }
-
-        h3 {
-            color: #2a5298;
-            margin: 1.5rem 0 1rem;
-            font-size: 1.5rem;
-        }
-
-        /* Filter controls */
-        .filter-container {
-            background: #f8f9fa;
-            padding: 1.5rem;
-            border-radius: 10px;
-            margin: 1.5rem 0;
-        }
-
-        .filter-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .filter-btn {
-            padding: 0.5rem 1rem;
-            border: 2px solid #667eea;
-            background: white;
-            color: #667eea;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-        }
-
-        .filter-btn:hover {
-            background: #f0f4ff;
-        }
-
-        .filter-btn.active {
-            background: #667eea;
-            color: white;
-        }
-
-        .search-box {
-            width: 100%;
-            padding: 0.75rem;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            font-size: 1rem;
-            margin-top: 1rem;
-        }
-
-        .tile-section {
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-            transition: all 0.3s;
-        }
-
-        .tile-section.hidden {
-            display: none;
-        }
-
-        .tile-display {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin: 1rem 0;
-            padding: 1rem;
-            background: white;
-            border-radius: 8px;
-            justify-content: center;
-        }
-
-        .tile {
-            width: 60px;
-            height: 85px;
-            background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
-            border: 3px solid #333;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2), inset 0 1px 2px rgba(255,255,255,0.8);
-            cursor: pointer;
-            transition: all 0.3s;
-            position: relative;
-        }
-
-        .tile::before {
-            content: '';
-            position: absolute;
-            top: 3px;
-            left: 3px;
-            right: 3px;
-            bottom: 3px;
-            border: 1px solid rgba(0,0,0,0.1);
-            border-radius: 3px;
-        }
-
-        .tile:hover {
-            transform: translateY(-8px) scale(1.1);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-        }
-
-        .tile.man { 
-            color: #c62828;
-            border-color: #c62828;
-        }
-        .tile.pin { 
-            color: #1565c0;
-            border-color: #1565c0;
-        }
-        .tile.sou { 
-            color: #2e7d32;
-            border-color: #2e7d32;
-        }
-        .tile.honor { 
-            color: #6a1b9a;
-            border-color: #6a1b9a;
-            background: linear-gradient(135deg, #fafafa 0%, #eeeeee 100%);
-        }
-
-        .tile.red {
-            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
-            border-color: #d32f2f;
-            color: #d32f2f;
-        }
-
-        .info-box {
-            background: #e7f3ff;
-            border-left: 4px solid #2196F3;
-            padding: 1rem;
-            margin: 1.5rem 0;
-            border-radius: 5px;
-        }
-
-        .warning-box {
-            background: #fff3cd;
-            border-left: 4px solid #ffc107;
-            padding: 1rem;
-            margin: 1.5rem 0;
-            border-radius: 5px;
-        }
-
-        .term-card {
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .term-card h4 {
-            color: #667eea;
-            margin-bottom: 0.5rem;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-            background: white;
-        }
-
-        th, td {
-            padding: 0.75rem;
-            text-align: left;
-            border: 1px solid #e0e0e0;
-        }
-
-        th {
-            background: #f8f9fa;
-            font-weight: 600;
-            color: #1e3c72;
-        }
-
-        tr:hover {
-            background: #f8f9fa;
-        }
-
-        .btn {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.3s;
-            margin: 0.5rem 0.5rem 0.5rem 0;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        }
-
-        .nav-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 2rem;
-            padding-top: 2rem;
-            border-top: 2px solid #e0e0e0;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: rgba(255, 255, 255, 0.8);
-            margin-top: 3rem;
-        }
-
-        @media (max-width: 768px) {
-            .header h1 {
-                font-size: 1.8rem;
-            }
-
-            .nav-container {
-                flex-direction: column;
-            }
-
-            .tile {
-                width: 45px;
-                height: 65px;
-                font-size: 1.3rem;
-            }
-
-            .nav-buttons {
-                flex-direction: column;
-                gap: 1rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="header">
+    <header>
         <h1>🀄 Риичи Маджонг</h1>
         <p>Интерактивный учебник по японскому маджонгу</p>
-    </div>
-
+    </header>
     <nav>
-        <div class="nav-container">
-            <a href="index.html" class="nav-link">Главная</a>
-            <a href="basics.html" class="nav-link">Основы</a>
-            <a href="tiles.html" class="nav-link active">Фишки</a>
-            <a href="yaku.html" class="nav-link">Яку</a>
-            <a href="scoring.html" class="nav-link">Очки</a>
-            <a href="practice.html" class="nav-link">Практика</a>
-        </div>
+        <ul>
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="basics.html">Основы</a></li>
+            <li><a href="tiles.html">Фишки</a></li>
+            <li><a href="yaku.html">Яку</a></li>
+            <li><a href="scoring.html">Очки</a></li>
+            <li><a href="practice.html">Практика</a></li>
+        </ul>
     </nav>
-
-    <div class="container">
-        <div class="content">
+    <main>
+        <section id="tiles">
             <h2>Фишки Маджонга</h2>
-            
-            <div class="info-box">
-                <strong>📊 Всего в игре:</strong> 136 фишек (каждая фишка присутствует в 4 экземплярах)
-                <br><strong>Состав:</strong> 108 числовых фишек + 28 почётных фишек
-            </div>
-
-            <div class="filter-container">
-                <h3 style="margin-top: 0;">🔍 Фильтр и поиск фишек</h3>
+            <p>📊 Всего в игре: 136 фишек (каждая фишка присутствует в 4 экземплярах)</p>
+            <p>Состав: 108 числовых фишек + 28 почётных фишек</p>
+            <div class="filter">
+                <h3>🔍 Фильтр и поиск фишек</h3>
                 <p>Выберите категорию для быстрого поиска:</p>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" onclick="filterTiles('all')">Все фишки</button>
-                    <button class="filter-btn" onclick="filterTiles('man')">Манзу (萬)</button>
-                    <button class="filter-btn" onclick="filterTiles('pin')">Пинзу (筒)</button>
-                    <button class="filter-btn" onclick="filterTiles('sou')">Соузу (索)</button>
-                    <button class="filter-btn" onclick="filterTiles('winds')">Ветра (風)</button>
-                    <button class="filter-btn" onclick="filterTiles('dragons')">Драконы (三元)</button>
-                    <button class="filter-btn" onclick="filterTiles('honors')">Все почётные</button>
-                    <button class="filter-btn" onclick="filterTiles('terminals')">Терминалы (1,9)</button>
-                    <button class="filter-btn" onclick="filterTiles('simples')">Простые (2-8)</button>
-                </div>
-                <input type="text" class="search-box" id="searchBox" placeholder="Поиск по названию... (например: 'восток', 'белый', '5 манзу')" oninput="searchTiles()">
+                <select id="tile-filter">
+                    <option value="all">Все фишки</option>
+                    <option value="manzu">Манзу (萬)</option>
+                    <option value="pinzu">Пинзу (筒)</option>
+                    <option value="souzu">Соузу (索)</option>
+                    <option value="winds">Ветра (風)</option>
+                    <option value="dragons">Драконы (三元)</option>
+                    <option value="honors">Все почётные</option>
+                    <option value="terminals">Терминалы (1,9)</option>
+                    <option value="simples">Простые (2-8)</option>
+                </select>
             </div>
-
-            <h3>Числовые масти (108 фишек)</h3>
-
-            <div class="tile-section" data-category="man">
-                <h4 style="color: #c62828; margin-bottom: 1rem;">🀇 Манзу (萬子) — Символы / Иероглифы</h4>
-                <p>Обозначается буквой "m" или иероглифом 萬</p>
-                <div class="tile-display">
-                    <div class="tile man" data-name="1 манзу один" title="1 манзу (1m)">1萬</div>
-                    <div class="tile man" data-name="2 манзу два" title="2 манзу (2m)">2萬</div>
-                    <div class="tile man" data-name="3 манзу три" title="3 манзу (3m)">3萬</div>
-                    <div class="tile man" data-name="4 манзу четыре" title="4 манзу (4m)">4萬</div>
-                    <div class="tile man red" data-name="5 манзу пять красная" title="5 манзу (5m) - Красная">5萬</div>
-                    <div class="tile man" data-name="6 манзу шесть" title="6 манзу (6m)">6萬</div>
-                    <div class="tile man" data-name="7 манзу семь" title="7 манзу (7m)">7萬</div>
-                    <div class="tile man" data-name="8 манзу восемь" title="8 манзу (8m)">8萬</div>
-                    <div class="tile man" data-name="9 манзу девять" title="9 манзу (9m)">9萬</div>
+            <div class="numeric-suits">
+                <h3>Числовые масти (108 фишек)</h3>
+                <div class="suit manzu">
+                    <h4>🀇 Манзу (萬子) — Символы / Иероглифы</h4>
+                    <p>Обозначается буквой "m" или иероглифом 萬</p>
+                    <div class="tiles-grid">
+                        <img src="tiles/regular/1m.svg" alt="1 manzu">
+                        <img src="tiles/regular/2m.svg" alt="2 manzu">
+                        <img src="tiles/regular/3m.svg" alt="3 manzu">
+                        <img src="tiles/regular/4m.svg" alt="4 manzu">
+                        <img src="tiles/regular/5m.svg" alt="5 manzu">
+                        <img src="tiles/regular/6m.svg" alt="6 manzu">
+                        <img src="tiles/regular/7m.svg" alt="7 manzu">
+                        <img src="tiles/regular/8m.svg" alt="8 manzu">
+                        <img src="tiles/regular/9m.svg" alt="9 manzu">
+                    </div>
                 </div>
-            </div>
-
-            <div class="tile-section" data-category="pin">
-                <h4 style="color: #1565c0; margin-bottom: 1rem;">🀙 Пинзу (筒子) — Круги / Точки</h4>
-                <p>Обозначается буквой "p"</p>
-                <div class="tile-display">
-                    <div class="tile pin" data-name="1 пинзу один" title="1 пинзу (1p)">①</div>
-                    <div class="tile pin" data-name="2 пинзу два" title="2 пинзу (2p)">②</div>
-                    <div class="tile pin" data-name="3 пинзу три" title="3 пинзу (3p)">③</div>
-                    <div class="tile pin" data-name="4 пинзу четыре" title="4 пинзу (4p)">④</div>
-                    <div class="tile pin red" data-name="5 пинзу пять красная" title="5 пинзу (5p) - Красная">⑤</div>
-                    <div class="tile pin" data-name="6 пинзу шесть" title="6 пинзу (6p)">⑥</div>
-                    <div class="tile pin" data-name="7 пинзу семь" title="7 пинзу (7p)">⑦</div>
-                    <div class="tile pin" data-name="8 пинзу восемь" title="8 пинзу (8p)">⑧</div>
-                    <div class="tile pin" data-name="9 пинзу девять" title="9 пинзу (9p)">⑨</div>
+                <div class="suit pinzu">
+                    <h4>🀙 Пинзу (筒子) — Круги / Точки</h4>
+                    <p>Обозначается буквой "p"</p>
+                    <div class="tiles-grid">
+                        <img src="tiles/regular/1p.svg" alt="1 pinzu">
+                        <img src="tiles/regular/2p.svg" alt="2 pinzu">
+                        <img src="tiles/regular/3p.svg" alt="3 pinzu">
+                        <img src="tiles/regular/4p.svg" alt="4 pinzu">
+                        <img src="tiles/regular/5p.svg" alt="5 pinzu">
+                        <img src="tiles/regular/6p.svg" alt="6 pinzu">
+                        <img src="tiles/regular/7p.svg" alt="7 pinzu">
+                        <img src="tiles/regular/8p.svg" alt="8 pinzu">
+                        <img src="tiles/regular/9p.svg" alt="9 pinzu">
+                    </div>
                 </div>
-            </div>
-
-            <div class="tile-section" data-category="sou">
-                <h4 style="color: #2e7d32; margin-bottom: 1rem;">🀐 Соузу (索子) — Бамбуки / Палочки</h4>
-                <p>Обозначается буквой "s"</p>
-                <div class="tile-display">
-                    <div class="tile sou" data-name="1 соузу один бамбук" title="1 соузу (1s)">🦜</div>
-                    <div class="tile sou" data-name="2 соузу два" title="2 соузу (2s)">2s</div>
-                    <div class="tile sou" data-name="3 соузу три" title="3 соузу (3s)">3s</div>
-                    <div class="tile sou" data-name="4 соузу четыре" title="4 соузу (4s)">4s</div>
-                    <div class="tile sou red" data-name="5 соузу пять красная" title="5 соузу (5s) - Красная">5s</div>
-                    <div class="tile sou" data-name="6 соузу шесть" title="6 соузу (6s)">6s</div>
-                    <div class="tile sou" data-name="7 соузу семь" title="7 соузу (7s)">7s</div>
-                    <div class="tile sou" data-name="8 соузу восемь" title="8 соузу (8s)">8s</div>
-                    <div class="tile sou" data-name="9 соузу девять" title="9 соузу (9s)">9s</div>
-                </div>
-                <div class="warning-box">
-                    <strong>⚠️ Внимание:</strong> Единица бамбука (1s) обычно изображается как птица или особый узор!
+                <div class="suit souzu">
+                    <h4>🀐 Соузу (索子) — Бамбуки / Палочки</h4>
+                    <p>Обозначается буквой "s"</p>
+                    <div class="tiles-grid">
+                        <img src="tiles/regular/1s.svg" alt="1 souzu (bird)">
+                        <img src="tiles/regular/2s.svg" alt="2 souzu">
+                        <img src="tiles/regular/3s.svg" alt="3 souzu">
+                        <img src="tiles/regular/4s.svg" alt="4 souzu">
+                        <img src="tiles/regular/5s.svg" alt="5 souzu">
+                        <img src="tiles/regular/6s.svg" alt="6 souzu">
+                        <img src="tiles/regular/7s.svg" alt="7 souzu">
+                        <img src="tiles/regular/8s.svg" alt="8 souzu">
+                        <img src="tiles/regular/9s.svg" alt="9 souzu">
+                    </div>
+                    <p>⚠️ Внимание: Единица бамбука (1s) обычно изображается как птица или особый узор!</p>
                 </div>
             </div>
-
-            <h3>Почётные фишки (28 фишек)</h3>
-
-            <div class="tile-section" data-category="winds">
-                <h4 style="color: #6a1b9a; margin-bottom: 1rem;">🀀 Ветра (風牌 Kazehai)</h4>
-                <p>4 вида, по 4 экземпляра = 16 фишек</p>
-                <div class="tile-display">
-                    <div class="tile honor" data-name="восток тон east" title="Восток (Тон)">東</div>
-                    <div class="tile honor" data-name="юг нан south" title="Юг (Нан)">南</div>
-                    <div class="tile honor" data-name="запад ша west" title="Запад (Ша)">西</div>
-                    <div class="tile honor" data-name="север пей north" title="Север (Пей)">北</div>
+            <div class="honor-tiles">
+                <h3>Почётные фишки (28 фишек)</h3>
+                <div class="winds">
+                    <h4>🀀 Ветра (風牌 Kazehai)</h4>
+                    <p>4 вида, по 4 экземпляра = 16 фишек</p>
+                    <div class="tiles-grid">
+                        <img src="tiles/regular/east.svg" alt="east wind">
+                        <img src="tiles/regular/south.svg" alt="south wind">
+                        <img src="tiles/regular/west.svg" alt="west wind">
+                        <img src="tiles/regular/north.svg" alt="north wind">
+                    </div>
+                    <table>
+                        <tr><th>Фишка</th><th>Название</th><th>Чтение</th><th>Значение</th></tr>
+                        <tr><td><img src="tiles/regular/east.svg" alt="east"></td><td>Тон</td><td>Ton</td><td>Восток</td></tr>
+                        <tr><td><img src="tiles/regular/south.svg" alt="south"></td><td>Нан</td><td>Nan</td><td>Юг</td></tr>
+                        <tr><td><img src="tiles/regular/west.svg" alt="west"></td><td>Ша</td><td>Shaa</td><td>Запад</td></tr>
+                        <tr><td><img src="tiles/regular/north.svg" alt="north"></td><td>Пей</td><td>Pei</td><td>Север</td></tr>
+                    </table>
                 </div>
-                <table>
-                    <tr>
-                        <th>Фишка</th>
-                        <th>Название</th>
-                        <th>Чтение</th>
-                        <th>Значение</th>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 1.5rem; color: #6a1b9a;">東</td>
-                        <td>Тон</td>
-                        <td>Ton</td>
-                        <td>Восток</td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 1.5rem; color: #6a1b9a;">南</td>
-                        <td>Нан</td>
-                        <td>Nan</td>
-                        <td>Юг</td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 1.5rem; color: #6a1b9a;">西</td>
-                        <td>Ша</td>
-                        <td>Shaa</td>
-                        <td>Запад</td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 1.5rem; color: #6a1b9a;">北</td>
-                        <td>Пей</td>
-                        <td>Pei</td>
-                        <td>Север</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="tile-section" data-category="dragons">
-                <h4 style="color: #6a1b9a; margin-bottom: 1rem;">🀆 Драконы (三元牌 Sangenpai)</h4>
-                <p>3 вида, по 4 экземпляра = 12 фишек</p>
-                <div class="tile-display">
-                    <div class="tile honor" data-name="белый хаку white dragon" title="Белый дракон (Хаку)">白</div>
-                    <div class="tile honor" data-name="зелёный хацу green dragon" title="Зелёный дракон (Хацу)">發</div>
-                    <div class="tile honor" data-name="красный тюн чун red dragon" title="Красный дракон (Тюн)">中</div>
+                <div class="dragons">
+                    <h4>🀆 Драконы (三元牌 Sangenpai)</h4>
+                    <p>3 вида, по 4 экземпляра = 12 фишек</p>
+                    <div class="tiles-grid">
+                        <img src="tiles/regular/white.svg" alt="white dragon">
+                        <img src="tiles/regular/green.svg" alt="green dragon">
+                        <img src="tiles/regular/red.svg" alt="red dragon">
+                    </div>
+                    <table>
+                        <tr><th>Фишка</th><th>Название</th><th>Чтение</th><th>Значение</th></tr>
+                        <tr><td><img src="tiles/regular/white.svg" alt="white"></td><td>Хаку</td><td>Haku</td><td>Белый дракон</td></tr>
+                        <tr><td><img src="tiles/regular/green.svg" alt="green"></td><td>Хацу</td><td>Hatsu</td><td>Зелёный дракон</td></tr>
+                        <tr><td><img src="tiles/regular/red.svg" alt="red"></td><td>Тюн</td><td>Chun</td><td>Красный дракон</td></tr>
+                    </table>
                 </div>
-                <table>
-                    <tr>
-                        <th>Фишка</th>
-                        <th>Название</th>
-                        <th>Чтение</th>
-                        <th>Значение</th>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 1.5rem; color: #6a1b9a;">白</td>
-                        <td>Хаку</td>
-                        <td>Haku</td>
-                        <td>Белый дракон</td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 1.5rem; color: #6a1b9a;">發</td>
-                        <td>Хацу</td>
-                        <td>Hatsu</td>
-                        <td>Зелёный дракон</td>
-                    </tr>
-                    <tr>
-                        <td style="font-size: 1.5rem; color: #6a1b9a;">中</td>
-                        <td>Тюн</td>
-                        <td>Chun</td>
-                        <td>Красный дракон</td>
-                    </tr>
-                </table>
             </div>
-
-            <h3>Важная терминология</h3>
-
-            <div class="term-card">
-                <h4>Терминалы (終牌 Shuupai)</h4>
-                <p>Фишки 1 и 9 каждой масти: 1m, 9m, 1p, 9p, 1s, 9s</p>
-                <p><strong>Всего:</strong> 6 типов × 4 экземпляра = 24 фишки</p>
+            <div class="terminology">
+                <h3>Важная терминология</h3>
+                <dl>
+                    <dt>Терминалы (終牌 Shuupai)</dt>
+                    <dd>Фишки 1 и 9 каждой масти: 1m, 9m, 1p, 9p, 1s, 9s</dd>
+                    <dd>Всего: 6 типов × 4 экземпляра = 24 фишки</dd>
+                    <dt>Простые фишки (中張牌 Chuuchanpai)</dt>
+                    <dd>Фишки 2-8 каждой масти</dd>
+                    <dd>Используется в яку "Танъяо"</dd>
+                    <dt>Яочу (么九牌 Yaochuuhai)</dt>
+                    <dd>Терминалы (1 и 9) + все почётные фишки (ветра и драконы)</dd>
+                    <dd>Всего: 13 типов × 4 экземпляра = 52 фишки</dd>
+                </dl>
+                <p>🔴 Ака-дора (赤ドラ) — Красные пятёрки</p>
+                <p>В некоторых вариантах правил одна из четырёх пятёрок каждой масти (5m, 5p, 5s) заменяется на красную. Красная пятёрка автоматически даёт +1 хан.</p>
             </div>
-
-            <div class="term-card">
-                <h4>Простые фишки (中張牌 Chuuchanpai)</h4>
-                <p>Фишки 2-8 каждой масти</p>
-                <p><strong>Используется в яку "Танъяо"</strong></p>
-            </div>
-
-            <div class="term-card">
-                <h4>Яочу (么九牌 Yaochuuhai)</h4>
-                <p>Терминалы (1 и 9) + все почётные фишки (ветра и драконы)</p>
-                <p><strong>Всего:</strong> 13 типов × 4 экземпляра = 52 фишки</p>
-            </div>
-
-            <div class="info-box">
-                <strong>🔴 Ака-дора (赤ドラ) — Красные пятёрки</strong>
-                <p style="margin-top: 0.5rem;">В некоторых вариантах правил одна из четырёх пятёрок каждой масти (5m, 5p, 5s) заменяется на красную. Красная пятёрка автоматически даёт +1 хан.</p>
-            </div>
-
-            <div class="nav-buttons">
-                <a href="basics.html" class="btn">← Основы</a>
-                <a href="yaku.html" class="btn">Яку →</a>
-            </div>
-        </div>
-    </div>
-
+            <nav class="section-nav">
+                <a href="basics.html">← Основы</a>
+                <a href="yaku.html">Яку →</a>
+            </nav>
+        </section>
+    </main>
     <footer>
         <p>🀄 Риичи Маджонг - Интерактивный учебник</p>
-        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Создано для изучения японского маджонга</p>
+        <p>Создано для изучения японского маджонга</p>
     </footer>
-
-    <script>
-        function filterTiles(category) {
-            const sections = document.querySelectorAll('.tile-section');
-            const buttons = document.querySelectorAll('.filter-btn');
-            
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            
-            if (category === 'all') {
-                sections.forEach(section => section.classList.remove('hidden'));
-            } else if (category === 'honors') {
-                sections.forEach(section => {
-                    const cat = section.getAttribute('data-category');
-                    section.classList.toggle('hidden', cat !== 'winds' && cat !== 'dragons');
-                });
-            } else if (category === 'terminals') {
-                sections.forEach(section => section.classList.add('hidden'));
-                document.querySelectorAll('.tile').forEach(tile => {
-                    const name = tile.getAttribute('data-name');
-                    if (name && (name.includes('1 ') || name.includes('9 '))) {
-                        tile.closest('.tile-section').classList.remove('hidden');
-                    }
-                });
-            } else if (category === 'simples') {
-                sections.forEach(section => {
-                    const cat = section.getAttribute('data-category');
-                    section.classList.toggle('hidden', cat === 'winds' || cat === 'dragons');
-                });
-            } else {
-                sections.forEach(section => {
-                    const cat = section.getAttribute('data-category');
-                    section.classList.toggle('hidden', cat !== category);
-                });
-            }
-            
-            document.getElementById('searchBox').value = '';
-        }
-
-        function searchTiles() {
-            const searchTerm = document.getElementById('searchBox').value.toLowerCase();
-            const sections = document.querySelectorAll('.tile-section');
-            
-            if (searchTerm === '') {
-                sections.forEach(section => section.classList.remove('hidden'));
-                return;
-            }
-            
-            sections.forEach(section => {
-                let hasMatch = false;
-                const tiles = section.querySelectorAll('.tile');
-                tiles.forEach(tile => {
-                    const name = tile.getAttribute('data-name').toLowerCase();
-                    if (name.includes(searchTerm)) {
-                        hasMatch = true;
-                    }
-                });
-                section.classList.toggle('hidden', !hasMatch);
-            });
-        }
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
